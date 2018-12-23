@@ -11,6 +11,7 @@ for i in range(len(ip)):
 print(ip)
 print(sm)
 print(bin(ip[0]))
+print(type(bin(ip[0])))
 print()
 
 a, b, c, d = ip
@@ -59,4 +60,20 @@ else:
   sm_b = 0
   sm_c = 24 - sm
 
-print(b ^ sm_b)
+def int_to_bits(num):
+  bits = []
+  for i in range(num):
+    bits.append(str(1))
+
+  # if len(bits) < 8:
+  bits = ''.join(bits).zfill(8)
+  bits = list(bits)
+  bits.append('0b')
+  bits = reversed(bits)
+  bits = ''.join(bits)
+  return bits
+
+sm_b = int_to_bits(sm_b)
+print(sm_b)
+print(int(sm_b, 2))
+print (b ^ int(sm_b,2))
