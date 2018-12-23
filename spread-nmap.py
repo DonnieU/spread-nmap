@@ -22,10 +22,11 @@ Algo:
 2. Check value of each octet: ip[0:] >= 0 and ip[0:] <= 255
 3. if (24 - sm) > 8:
      # we're dealing w/ 2nd and 3rd octet
-     sm_b = 8
-     sm_c = (24 - sm) - 8
+     sm_b = (24 - sm) - 8
+     sm_c = 0
    else:
      # we're only dealing w/ 3rd octet
+     sm_b = 0
      sm_c = 24 - sm
 
 4. IP ^ 255.255.255.255 # XOR to flip bits
@@ -42,15 +43,17 @@ def num_check():
       return False
   return True
 
+# 1)
 if (sm < 8) or (sm >=24):
   print('sm check')
   sys.exit(0)
 
-  # print(ip[0:])
+# 2)
 if not num_check():
   print("not num_check!")
   sys.exit(0)
 
+# 3)
 # num of bits on per octet
 # ignore first and last octet as we're working with subnet mask range of 8-23
 if (24 - sm) > 8:
@@ -60,20 +63,28 @@ else:
   sm_b = 0
   sm_c = 24 - sm
 
+# the number here represents the number of bits needed,
+# NOT an int to be converted to binary
 def int_to_bits(num):
-  bits = []
-  for i in range(num):
-    bits.append(str(1))
+  # bits = []
+  # for i in range(num):
+  #  bits.append(str(1))
 
-  # if len(bits) < 8:
-  bits = ''.join(bits).zfill(8)
-  bits = list(bits)
-  bits.append('0b')
-  bits = reversed(bits)
-  bits = ''.join(bits)
+  # bits = ''.join(bits).zfill(8)
+  # bits = list(bits)
+  # bits.append('0b')
+  # bits = reversed(bits)
+  # bits = ''.join(bits)
+
+  bits = 0 
+  for i in range(num,0,-1):
+    bits += 1 << i
+  bits =  format(bits, '0<08b')
+  print('bits: ', bits)
   return bits
 
 sm_b = int_to_bits(sm_b)
+
 print(sm_b)
-print(int(sm_b, 2))
-print (b ^ int(sm_b,2))
+print(bin(int(sm_b, 2)))
+print (b ^ int(sm_b, 2))
