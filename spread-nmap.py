@@ -8,14 +8,16 @@ ip = tmp[0].split('.')
 sm = int(tmp[1])
 for i in range(len(ip)):
   ip[i] = int(ip[i]) 
-print(ip)
-print(sm)
-print(bin(ip[0]))
-print(type(bin(ip[0])))
+print('ip: {}'.format(ip))
+print('subnet mask: {}'.format(sm))
+print('ip in 8-bit binary: {}'.format(bin(ip[0])))
+print('type bin(ip[0]): {}'.format(type(bin(ip[0]))))
 print()
 
-a, b, c, d = ip
-print(a)
+a, b, c, d = ip # destructure IP into octets
+print('octet a of ip: {}'.format(a))
+print()
+
 """
 Algo:
 1. Check subnet mask (sm): sm < 24 and sm >= 8
@@ -85,6 +87,6 @@ def int_to_bits(num):
 
 sm_b = int_to_bits(sm_b)
 
-print(sm_b)
-print(bin(int(sm_b, 2)))
-print (b ^ int(sm_b, 2))
+print('sm_b: {}'.format(sm_b))
+print('bin(int(sm_b,2): {}'.format(bin(int(sm_b, 2))))
+print('b | int(sm_b, 2): {}'.format(b | int(sm_b, 2)))
